@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Haze Removal Visualiser</title>
+    <!-- Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='assets/favicon.ico') }}"
+    />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link
+      href="{{ url_for('static', filename='css/styles.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="page-top">
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <h1
+          class="masthead-heading text-uppercase mb-0"
+          style="font-size: 2.5rem"
+        >
+        Dehaze your Hazed Images!
+        </h1>
+      </div>
+    </header>
+
+    <section class="page-section portfolio" id="colorize">
+      <div class="container text-center">
+        <!-- <h2
+          class="
+            page-section-heading
+            text-center text-uppercase text-secondary
+            mb-5
+          "
+        >
+          Colorize
+        </h2> -->
+
+        <form action="/submit" method="POST" enctype="multipart/form-data">
+          <label for="formFile" class="form-label mt-2"
+            ><h6>Please upload the hazed image</h6></label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="formFile"
+            name="img"
+            accept="image/*"
+          />
+          <br />
+          <input
+          class="form-control"
+          type="text"
+          id="formText"
+          name="param1"
+          
+        />
+          <br/>
+          <button type="submit" class="btn btn-primary mb-3" name="btn">
+            Dehaze it!
+          </button>
+        </form>
+         
+        {% if img_path2 %}
+        <h3 style="color: rgb(16, 190, 147)">Original image:</h3>
+        <p>To model the formation of the hazed image, we use the equation </p>
+        <img
+        class="mb-2 img-thumbnail"
+        src="static\assets\img\OPPP.JPG"
+        alt="Uploaded Image"
+      />
+          
+          <P>where I is the observed intensity, J is the scene radiance, A is the global atmospheric light, and t is the medium transmission. Intuitively, the haze image is a linear combination of the scene radiance and scattered atmospheric light. If we can recover A and t from the hazed image, then we can use this model to solve for J, the unhazed image.</p>
+        <img
+          class="mb-2 img-thumbnail"
+          src="{{ img_path1 }}"
+          alt="Uploaded Image"
+        />
+
+        <h3 style="color: rgb(0, 204, 255)">Obtaining the Dark Channel Prior</h3>
+        <p>
+          The dark channel prior is defined as: 
+          
+          J is our image, Jc is defined as a color channel of our image (one of red, blue, or green), and Omega(x) is a patch of pixels centered at x. 
+          
+          Intuitively, Jdark should be low in a haze-free region of the image. Colorful objects will lack intensity in at least one color channel, resulting in a low Jdark. However, in the lighter colors in the sky regions of the image will have higher Jdark. We'll use this information later to estimate the atmospheric light.</p>
+          <br>
+          <p>
+            The resulting dark channel prior from the image. In the foreground, the dark channel prior has low intensity, while in the sky regions, the intensity is high.
+          </p>
+        <img
+          class="mb-2 img-thumbnail"
+          src="{{ img_path2 }}"
+          alt="Uploaded Image"
+        />
+        <h3 style="color: rgba(32, 185, 185, 0.555)"> Atmospheric light estimation:</h3>
+        <p>
+          We assume that the atmospheric light is a constant for each channel. Also, we calculate the atmospheric light for each channel in the image Ac, indicating that A is different depending on what channel that is being used in the calculations.
+          
+         The procedure is as follows:<BR> 
+          1. Calculate the dark channel prior.<br>
+          2. Pick the 0.1% brightest pixels in the dark channel.<br>
+          3. Find the maximum intensity among the pixels in the original image I for each of the channels.<BR>
+          
+          A naive approach would be to simply take the highest intensities in all three color channels of the image and use that as the atmospheric light. However, this method is susceptible to incorrect results if there is a white object in the foreground. 
+          
+          To circumvent this, we use the method of calculating the dark channel prior since it will limit our search for atmospheric light in the sky region of the image. </p>
+        <h3 style="color: rgba(24, 185, 172, 0.555)">Transmission estimation:</h3>
+        <p>
+          We calculate the transmission bar{t}(x) through</p>
+          
+          <img
+          class="mb-2 img-thumbnail"
+          src="static\assets\img\OPP.JPG"
+          alt="Uploaded Image"
+        />
+          
+          <P>Intuitively, after normalizing the image using the atmospheric light, we know the fraction of atmospheric light that defines each pixel. From the model of the hazed image, we know that the hazed image is a linear combination of the atmospheric light and the original unhazed image. So, we can do 1 - this fraction to recover the fraction of the original image that defines each pixel.</p>
+        <img
+          class="mb-2 img-thumbnail"
+          src="{{ img_path5 }}"
+          alt="Uploaded Image"
+        />
+        <h3 style="color: rgba(70, 170, 148, 0.555)">Final Image</h3>
+        <p>Soft Matting
+          In this stage, we refine the alpha map to outline the profile of the objects in the image, allowing our transmission map to be correctly expressed. The paper uses a Matting Laplacian matrix to implement this refinement, but in another paper by the author he proposes a guided filter to achieve refinement. We will use this approach for our project.
+          
+          We can vectorize the calculation of the guided filter by using two facts to calculate the covariance matrix for each patch:
+         
+          </p>
+          <img
+          class="mb-2 img-thumbnail"
+          src="static\assets\img\OP.JPG"
+          alt="Uploaded Image"
+        />
+          <p>This will generate the covariance matrix for each patch. With this done, the subsequent calculations are easy to implement.
+          
+          Interestingly, in our testing there was little differnce between a guided filter based on the grayscale version of each photo vs using all 3 channels was minor. On some level this makes sense as most features can be distinguished clearly based on just intensity, however, it is clear that there can be boundaries that will be missed in some images due to foreground and background intensities blending together in the grayscale.</p>
+        <img
+          class="mb-2 img-thumbnail"
+          src="{{ img_path5 }}"
+          alt="Uploaded Image"
+        />
+        {% endif %}
+      </div>
+    </section>
+  </body>
+</html>
