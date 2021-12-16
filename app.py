@@ -5,8 +5,6 @@ from PIL import Image
 
 import numpy as np
 import cv2
-#import cv2
-#import cv2
 import shutil
 import numpy as np
 import cv2 as cv
@@ -294,4 +292,4 @@ def prediction3():
 
     return render_template("third.html", img_path1='static/original_img.jpg', img_path2='static/final_img1.jpg', img_path3 =  'static/final_img2.jpg', img_path4 =  'static/final_img4.jpg', img_path5 =  'static/final_img.jpg')
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run()
