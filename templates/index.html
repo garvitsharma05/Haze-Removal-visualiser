@@ -48,7 +48,31 @@
         </h1>
       </div>
     </header>
-    
+    <div class ="text-justify">
+      <p class = "text-center">
+        <h3 style="color: rgb(16, 190, 147)"> Introduction </h3>
+        <br/>
+        <p>The object identification within an image captured during hazy conditions is difficult due to reduction in the image. Furthermore, it causes inconvenience in various optical imaging application such as satellite remote-sensing systems, aerial photo systems, outdoor monitoring systems, and object identification systems, respectively
+          . Hence, the improvement and retracement of the visual effects and enhanced post processing are needed. The dark channel prior (DCP) algorithm has been widely used for the applications of dehazing (removal of haze) of images. 
+          
+        </p>
+      </p>
+      </div>
+    <div class ="text-justify">
+    <p class = "text-center">
+      <h4 style="color: rgb(16, 190, 147)"> What is DCP algorithm? </h3>
+      <br/>
+      <p>The dark channel prior
+        is based on the statistics of outdoor haze-free images. In most of the local regions which do not cover the sky,
+        some pixels (called dark pixels) very often have very low
+        intensity in at least one color (RGB) channel. In hazy images,
+        the intensity of these dark pixels in that channel is mainly
+        contributed by the airlight. Therefore, these dark pixels can
+        directly provide an accurate estimation of the haze transmission. Combining a haze imaging model and a soft matting
+        interpolation method, we can recover a high-quality hazefree image and produce a good depth map.
+        </p>
+    </p>
+    </div>
     <section class="page-section portfolio" id="colorize">
       <div class="container text-center">
         <!-- <h2
@@ -60,10 +84,10 @@
         >
           Colorize
         </h2> -->
-
+       
         <form action="/submit" method="POST" enctype="multipart/form-data">
           <label for="formFile" class="form-label mt-2"
-            ><h6>Please upload the hazed image</h6></label
+            ><h6 style="color: rgb(26, 188, 156)" >Please upload the hazed image  to see the Working!</h6></label
           >
           <input
             class="form-control"
@@ -75,7 +99,7 @@
           <br />
           <input
           class="form-control"
-          type="text"
+          type="number"
           id="formText"
           name="param1"
           
@@ -87,7 +111,7 @@
           
           
         </form>
-        <p align="center"><a href= comparison ><button class="btn btn-primary mb-3" style="height:75px;width:150px">Compare</button></a></p>
+      
         {% if img_path2 %}
         <h3 style="color: rgb(16, 190, 147)">Original image:</h3>
         <p>To model the formation of the hazed image, we use the equation </p>
@@ -169,6 +193,7 @@
           alt="Uploaded Image"
         />
         {% endif %}
+        <p align="center"><a href= comparison ><button class="btn btn-primary mb-3" style="height:75px;width:150px">Compare</button></a></p>
       </div>
     </section>
   </body>
