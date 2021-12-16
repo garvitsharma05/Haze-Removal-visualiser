@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Haze Removal Visualiser</title>
+    <!-- Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='assets/favicon.ico') }}"
+    />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link
+      href="{{ url_for('static', filename='css/styles.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="page-top">
+    <header class="masthead bg-success text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <h1
+          class="masthead-heading text-uppercase mb-0"
+          style="font-size: 2.5rem"
+        >
+        Halo Artifacts
+        </h1>
+      </div>
+    </header>
+    <div class ="text-justify">
+        <p class = "text-center">
+          <h3 style="color: rgb(146, 21, 230)"> Halo Artifacts </h3>
+          <br/>
+          <p>
+            Halo Artifacts
+            In DCP, minimum filtering criteria is used to estimate dark channel and transmittance.The local filtering process obtained the transmittance of each pixel by estimating the transmittance of the pixels in its adjacent area, but it is not the true transmittance value which can be clearly noticable by observing local filtering for smooth depth of field and depth-changing edges 
+            where 3x3 patch size is used, the square box represent filtereing window, the dark box area represents its central pixel, the A-side area is a distant area with low pixel intensity, and the B-side area is a near-field area with high pixel intensity.
+            
+        </p>
+        </p>
+        </div>
+    <section class="page-section portfolio" id="colorize">
+      <div class="container text-center">
+        <!-- <h2
+          class="
+            page-section-heading
+            text-center text-uppercase text-secondary
+            mb-5
+          "
+        >
+          Colorize
+        </h2> -->
+
+        <form action="/siuuu" method="POST" enctype="multipart/form-data">
+          <label for="formFile" class="form-label mt-2"
+            ><h6>Please upload the hazed image</h6></label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="formFile"
+            name="img"
+            accept="image/*"
+          />
+          <br />
+          <input
+          class="form-control"
+          type="number"
+          id="formText"
+          name="param1"
+          
+        />
+        <br/>
+          <button type="submit" class="btn btn-success mb-3" name="btn">
+            Dehaze it!
+          </button>
+        </form>
+        
+        {% if img_path2 %}
+        <h3 style="color: rgb(142, 0, 192)">Output Image</h3>
+        <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path1 }}"
+        alt="Uploaded Image"
+        />
+        <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path2 }}"
+        alt="Uploaded Image"
+        />
+        
+        <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path5 }}"
+        alt="Uploaded Image"
+        />
+        {% endif %}
+      </div>
+    </section>
+  </body>
+</html>

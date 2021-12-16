@@ -48,7 +48,16 @@
         </h1>
       </div>
     </header>
-
+    <div class ="text-justify">
+        <p class = "text-center">
+          <h3 style="color: rgb(44, 62, 80)"> Patch Size Estimation </h3>
+          <br/>
+          <p>
+            Patch size estimation is a crucial step in dark channel construction and estimating atmospheric light,transmission map from it in further steps. In general, the larger patch size will generate better dark channel, but blurry dark channels are obtained when patch size is large which creates halo effect near the edge. Similarly, In smaller local patch size color textures are transferred to the dark channel which will generate excessive colour enhancement in the de-hazed image.
+            The estimation of atmospheric light is depend on the dark channel significantly as when the dark channel obtained from large local patch is preferable because due to smaller patch size bright objects will reduce the atmospheric light estimation accuracy. Therefore, if smaller local patch is used in dark channel construction, it is recommended to use an additional dark channel with a larger local patch size only for atmospheric light estimation which will cost to the computation complexity. So despite of the great significance of the path size most methods used fixed size or do not mention the size.   
+        </p>
+        </p>
+        </div>
     <section class="page-section portfolio" id="colorize">
       <div class="container text-center">
         <!-- <h2
@@ -206,6 +215,7 @@ src="{{ img_path155 }}"
 alt="Uploaded Image"
 />
         {% endif %}
+        <p align="center"><a href= comparison1 ><button class="btn btn-secondary mb-3" style="height:75px;width:150px">Halo Artifacts</button></a></p>
       </div>
     </section>
   </body>

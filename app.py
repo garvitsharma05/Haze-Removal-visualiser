@@ -165,6 +165,9 @@ def index():
 @app.route('/comparison')
 def index1():
 	return render_template("second.html")
+@app.route('/comparison1')
+def index2():
+	return render_template("third.html")
 @app.route("/submit", methods=["POST"])
 def prediction():
     img1_color=[]
@@ -268,6 +271,27 @@ def prediction1():
     img_path131='static/final_img131.jpg',  img_path135 =  'static/final_img13.jpg',
     img_path151='static/final_img151.jpg',  img_path155 =  'static/final_img15.jpg'
     )
+@app.route("/siuuu", methods=["POST"])
+def prediction3():
+    img1_color=[]
+    img=request.files['img']
+    img_path1 = 'static/haze.jpg'
+    img.save(img_path1)
+    img = bgr2rgb(cv.imread("static/haze.jpg"))
+    w_size1 = int(request.form["param1"])
+    #cv2.imwrite(path,img_to_save)
+    cv.imwrite("static/original_img.jpg",img)
+    img26 = get_dark_channel_prior(img, w_size1)
+    img46 = estimate_atmospheric_light(img, w_size1)
+    img56 = estimate_transmission(img,w_size1, omega=0.95)
+    
+    l6, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    #f, ax2= plt.subplots(1, 1, figsize=(10,10))
+    cv.imwrite("static/final_img1.jpg",img26)
+    cv.imwrite("static/final_img2.jpg",img46)
+    cv.imwrite("static/final_img4.jpg",img56)
+    cv.imwrite("static/final_img.jpg",l6)
 
+    return render_template("third.html", img_path1='static/original_img.jpg', img_path2='static/final_img1.jpg', img_path3 =  'static/final_img2.jpg', img_path4 =  'static/final_img4.jpg', img_path5 =  'static/final_img.jpg')
 if __name__ == "__main__":
 	app.run(debug=True)
