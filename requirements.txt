@@ -1,6 +1,6 @@
 numpy
 opencv-python-headless
-Python==3.9.9
+
 keras==2.6.0
 Flask==1.1.2
 tensorflow-cpu
