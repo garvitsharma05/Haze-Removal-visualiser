@@ -162,7 +162,9 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 def index():
 	return render_template("index.html")
 
-
+@app.route('/comparison')
+def index1():
+	return render_template("second.html")
 @app.route("/submit", methods=["POST"])
 def prediction():
     img1_color=[]
@@ -185,7 +187,87 @@ def prediction():
     cv.imwrite("static/final_img.jpg",l)
 
     return render_template("index.html", img_path1='static/original_img.jpg', img_path2='static/final_img1.jpg', img_path3 =  'static/final_img2.jpg', img_path4 =  'static/final_img4.jpg', img_path5 =  'static/final_img.jpg')
+@app.route("/sub", methods=["POST"])
+def prediction1():
+    img1_color=[]
+    img=request.files['img']
+    img_path1 = 'static/haze.jpg'
+    img.save(img_path1)
+    img = bgr2rgb(cv.imread("static/haze.jpg"))
+    w_size1=1
+    #cv2.imwrite(path,img_to_save)
+    cv.imwrite("static/original_img.jpg",img)
+    img12 = get_dark_channel_prior(img, w_size1)
+   
+    
+    l1, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    w_size1=3
+    img32 = get_dark_channel_prior(img, w_size1)
+  
+    l3, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    w_size1=5
+    img52 = get_dark_channel_prior(img, w_size1)
 
+    
+    l5, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    w_size1=7
+    img72 = get_dark_channel_prior(img, w_size1)
+   
+    
+    l7, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    w_size1=9
+    img92 = get_dark_channel_prior(img, w_size1)
+   
+    
+    l9, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    w_size1=13
+    img132 = get_dark_channel_prior(img, w_size1)
+   
+    
+    l13, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    w_size1=15
+    img152 = get_dark_channel_prior(img, w_size1)
+  
+    print(w_size1)
+    l15, _ = haze_removal(img, w_size1, a_omega=0.95, gf_w_size=200, eps=1e-6)
+    #f, ax2= plt.subplots(1, 1, figsize=(10,10))
+    cv.imwrite("static/final_img11.jpg",img12)
+    
+    cv.imwrite("static/final_img1.jpg",l1)
+    #3
+    cv.imwrite("static/final_img31.jpg",img32)
+    
+    cv.imwrite("static/final_img3.jpg",l3)
+
+    #5
+    cv.imwrite("static/final_img51.jpg",img52)
+    
+    cv.imwrite("static/final_img5.jpg",l5)
+    #7
+    cv.imwrite("static/final_img71.jpg",img72)
+ 
+    cv.imwrite("static/final_img7.jpg",l7)
+
+    cv.imwrite("static/final_img91.jpg",img92)
+
+    cv.imwrite("static/final_img9.jpg",l9)
+
+    cv.imwrite("static/final_img131.jpg",img132)
+   
+    cv.imwrite("static/final_img13.jpg",l13)
+
+    cv.imwrite("static/final_img151.jpg",img152)
+   
+    cv.imwrite("static/final_img15.jpg",l15)
+
+    return render_template("second.html", img_path1='static/original_img.jpg', img_path11='static/final_img11.jpg', img_path15 =  'static/final_img1.jpg',
+    img_path31='static/final_img31.jpg', img_path35 =  'static/final_img3.jpg',
+    img_path51='static/final_img51.jpg',  img_path55 =  'static/final_img5.jpg',
+    img_path71='static/final_img71.jpg',  img_path75 =  'static/final_img7.jpg',
+    img_path91='static/final_img91.jpg', img_path95 =  'static/final_img9.jpg',
+    img_path131='static/final_img131.jpg',  img_path135 =  'static/final_img13.jpg',
+    img_path151='static/final_img151.jpg',  img_path155 =  'static/final_img15.jpg'
+    )
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -48,7 +48,7 @@
         </h1>
       </div>
     </header>
-
+    
     <section class="page-section portfolio" id="colorize">
       <div class="container text-center">
         <!-- <h2
@@ -84,8 +84,10 @@
           <button type="submit" class="btn btn-primary mb-3" name="btn">
             Dehaze it!
           </button>
+          
+          
         </form>
-         
+        <p align="center"><a href= comparison ><button class="btn btn-primary mb-3" style="height:75px;width:150px">Compare</button></a></p>
         {% if img_path2 %}
         <h3 style="color: rgb(16, 190, 147)">Original image:</h3>
         <p>To model the formation of the hazed image, we use the equation </p>
@@ -147,7 +149,7 @@
           alt="Uploaded Image"
         />
         <h3 style="color: rgba(70, 170, 148, 0.555)">Final Image</h3>
-        <p>Soft Matting
+        <p>
           In this stage, we refine the alpha map to outline the profile of the objects in the image, allowing our transmission map to be correctly expressed. The paper uses a Matting Laplacian matrix to implement this refinement, but in another paper by the author he proposes a guided filter to achieve refinement. We will use this approach for our project.
           
           We can vectorize the calculation of the guided filter by using two facts to calculate the covariance matrix for each patch:

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Haze Removal Visualiser</title>
+    <!-- Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename='assets/favicon.ico') }}"
+    />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link
+      href="{{ url_for('static', filename='css/styles.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="page-top">
+    <header class="masthead bg-secondary text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <h1
+          class="masthead-heading text-uppercase mb-0"
+          style="font-size: 2.5rem"
+        >
+        Comparing DCP on various patch-size!
+        </h1>
+      </div>
+    </header>
+
+    <section class="page-section portfolio" id="colorize">
+      <div class="container text-center">
+        <!-- <h2
+          class="
+            page-section-heading
+            text-center text-uppercase text-secondary
+            mb-5
+          "
+        >
+          Colorize
+        </h2> -->
+
+        <form action="/sub" method="POST" enctype="multipart/form-data">
+          <label for="formFile" class="form-label mt-2"
+            ><h6>Please upload the hazed image</h6></label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="formFile"
+            name="img"
+            accept="image/*"
+          />
+          <br />
+          
+          <button type="submit" class="btn btn-secondary mb-3" name="btn">
+            Dehaze it!
+          </button>
+        </form>
+        
+        {% if img_path11 %}
+        <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path1 }}"
+        alt="Uploaded Image"
+      />
+      <br>
+        <h3>Patch-size 1x1</h3>
+        <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path1 }}"
+        alt="Uploaded Image"
+      />
+      <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path11 }}"
+        alt="Uploaded Image"
+      />
+      
+      <img
+        class="mb-2 img-thumbnail"
+        src="{{ img_path15 }}"
+        alt="Uploaded Image"
+      />
+      <h3>Patch-size 3x3</h3>
+      <img
+      class="mb-2 img-thumbnail"
+      src="{{ img_path1 }}"
+      alt="Uploaded Image"
+    />
+    <img
+      class="mb-2 img-thumbnail"
+      src="{{ img_path31 }}"
+      alt="Uploaded Image"
+    />
+    
+    <img
+      class="mb-2 img-thumbnail"
+      src="{{ img_path35 }}"
+      alt="Uploaded Image"
+    />
+    <h3>Patch-size 5x5</h3>
+    <img
+    class="mb-2 img-thumbnail"
+    src="{{ img_path1 }}"
+    alt="Uploaded Image"
+  />
+  <img
+    class="mb-2 img-thumbnail"
+    src="{{ img_path51 }}"
+    alt="Uploaded Image"
+  />
+  
+  <img
+    class="mb-2 img-thumbnail"
+    src="{{ img_path55 }}"
+    alt="Uploaded Image"
+  />
+  <h3>Patch-size 7x7</h3>
+  <img
+  class="mb-2 img-thumbnail"
+  src="{{ img_path1 }}"
+  alt="Uploaded Image"
+/>
+<img
+  class="mb-2 img-thumbnail"
+  src="{{ img_path71 }}"
+  alt="Uploaded Image"
+/>
+
+<img
+  class="mb-2 img-thumbnail"
+  src="{{ img_path75 }}"
+  alt="Uploaded Image"
+/>
+<h3>Patch-size 9x9</h3>
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path1 }}"
+alt="Uploaded Image"
+/>
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path91 }}"
+alt="Uploaded Image"
+/>
+
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path95 }}"
+alt="Uploaded Image"
+/>
+<h3>Patch-size 13x13</h3>
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path1 }}"
+alt="Uploaded Image"
+/>
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path131 }}"
+alt="Uploaded Image"
+/>
+
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path135 }}"
+alt="Uploaded Image"
+/>
+<h3>Patch-size 15x15</h3>
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path1 }}"
+alt="Uploaded Image"
+/>
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path151 }}"
+alt="Uploaded Image"
+/>
+
+<img
+class="mb-2 img-thumbnail"
+src="{{ img_path155 }}"
+alt="Uploaded Image"
+/>
+        {% endif %}
+      </div>
+    </section>
+  </body>
+</html>
